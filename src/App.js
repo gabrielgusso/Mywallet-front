@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import GlobalStyle from "./components/GlobalStyle.js"
+import Login from "./pages/Login.js"
+import Registration from "./pages/Registration.js"
+import Activites from "./pages/Activites.js"
+import Auth from "./providers/auth.js"
 
 function App() {
+  const [user, setUser] = useState("")
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <GlobalStyle />
+      <Auth.Provider value={{ user, setUser }}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<Registration />} />
+          <Route path="/atividades" element={<Activites />} />
+        </Routes>
+        </Auth.Provider>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
