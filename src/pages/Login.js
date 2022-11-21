@@ -11,30 +11,31 @@ import logo from "../assets/images/MyWallet.png"
 export default function Login() {
   const [registry, setRegistry] = useState()
   const [loading, setLoading] = useState(false)
-  const { setUser } = useContext(Auth)
+  const { setToken } = useContext(Auth)
   const navigate = useNavigate()
 
-  function register(event) {
+
+  async function register (event) {
     event.preventDefault()
     setLoading(true)
-    const request = axios.post(`${BASE_URL}/sign-in`, registry)
-    request.then((res) => {
-      setUser(res.data)
-      navigate(`/atividades`)
-    })
-    request.catch((err) => {
-      setLoading(false)
-      if (err.response.status === 422) {
-        alert(err.response.data)
-      }
-      if (err.response.status === 409) {
-        alert(err.response.data)
-      }
-      if (err.response.status === 401) {
-        alert(err.response.data)
-      }
-      console.log(err)
-    })
+    try{
+        const request = await axios.post(`${BASE_URL}/sign-in`, registry)
+        localStorage.setItem('bearer', request.data)
+        setToken(request.data)
+    } catch(error){
+        setLoading(false)
+        if (error.response.status === 422) {
+          alert(error.response.data)
+        }
+        if (error.response.status === 409) {
+          alert(error.response.data)
+        }
+        if (error.response.status === 401) {
+          alert(error.response.data)
+        }
+        console.log(error)
+    }
+    navigate("/atividades")
   }
 
   return (
