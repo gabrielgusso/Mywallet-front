@@ -38,7 +38,7 @@ export default function NovaEntrada() {
     console.log(registry)
     const request = axios.post(`${BASE_URL}/activity`, registry ,config)
       request.then((res) => {
-        console.log(res)
+        navigate("/atividades")
       })
       request.catch((error) => {
         console.log(error)

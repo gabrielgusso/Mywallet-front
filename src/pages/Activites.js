@@ -3,8 +3,7 @@ import { purple, lightPurple } from "../constants/colors"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { BASE_URL } from "../constants/url"
-import { Link, useNavigate } from "react-router-dom"
-import Auth from "../providers/auth"
+import { useNavigate } from "react-router-dom"
 import { IoMdAddCircleOutline, IoMdRemoveCircleOutline } from "react-icons/io"
 import { IoExitOutline } from "react-icons/io5"
 
@@ -65,7 +64,7 @@ export default function Activites() {
         )
         : <p>nada</p>}
       </ActivitesBox>
-      <Balance color={balanceResponce > 0 ? "#03AC00" : "#C70000"}><h3>Saldo</h3><p>{balanceResponce.balance}</p></Balance>
+      <Balance color={balanceResponce.balance > 0 ? "#03AC00" : "#C70000"}><h3>Saldo</h3><p>{balanceResponce.balance}</p></Balance>
       <Buttons>
         <button
           onClick={() => {
@@ -114,7 +113,7 @@ const ActivitesBox = styled.div`
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   font-size: 16px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 20px 10px 0px 10px;
   div{
     display: flex;

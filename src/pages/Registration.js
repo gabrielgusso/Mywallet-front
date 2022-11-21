@@ -12,7 +12,7 @@ export default function Registration() {
   const [registry, setRegistry] = useState()
   const [confirmPassword, setConfirmPassword] = useState()
   const [loading, setLoading] = useState(false)
-  const { setUser } = useContext(Auth)
+  const { setToken } = useContext(Auth)
   const navigate = useNavigate()
 
   function register(event) {
@@ -24,7 +24,7 @@ export default function Registration() {
     }
     const request = axios.post(`${BASE_URL}/sign-up`, registry)
     request.then((res) => {
-      setUser(res.data)
+      setToken(res.data)
       console.log(res.data)
       navigate(`/`)
     })
